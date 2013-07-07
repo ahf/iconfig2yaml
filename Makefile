@@ -1,4 +1,4 @@
-CFLAGS = -Wall -O2
+CFLAGS = -Wall -O2 -std=c99
 GLIB_CFLAGS = $(shell pkg-config glib-2.0 --cflags)
 GLIB_LDFLAGS = $(shell pkg-config glib-2.0 --libs)
 YAML_LDFLAGS = $(shell pkg-config --libs yaml-0.1)
