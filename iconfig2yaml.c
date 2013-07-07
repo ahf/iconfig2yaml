@@ -291,6 +291,15 @@ void serialize(bool verbose, int indentation_level, yaml_emitter_t *emitter, CON
     }
 }
 
+void display_help(const char *program)
+{
+    fprintf(stderr, "%s [-vdcu] [-i file]\n\n", program);
+    fprintf(stderr, "   -i <file> - Specify input configuration file.\n");
+    fprintf(stderr, "   -c        - Dump data in YAML's canonical form.\n");
+    fprintf(stderr, "   -u        - Dump data in the Unicode format.\n");
+    fprintf(stderr, "   -d        - Dump data in internal debugging format.\n");
+    fprintf(stderr, "   -v        - Enables verbose logging.\n");
+}
 
 int main(int argc, char *argv[])
 {
@@ -305,7 +314,7 @@ int main(int argc, char *argv[])
 
     int c;
 
-    while ((c = getopt(argc, argv, "vdcui:")) != -1)
+    while ((c = getopt(argc, argv, "hvdcui:")) != -1)
     {
         switch (c)
         {
@@ -325,9 +334,16 @@ int main(int argc, char *argv[])
                 verbose = true;
                 break;
             default:
-                fprintf(stderr, "Error: Invalid argument");
+                display_help(argv[0]);
                 return EXIT_FAILURE;
         }
+    }
+
+    if (input_file == NULL)
+    {
+        fprintf(stderr, "Error: Input file missing\n");
+        display_help(argv[0]);
+        return EXIT_FAILURE;
     }
 
     // Prepare the YAML emitter.
