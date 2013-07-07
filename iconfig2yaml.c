@@ -385,7 +385,7 @@ int main(int argc, char *argv[])
         printf("========================\n");
     }
 
-    // printf("Start Event\n");
+    logprintf(verbose, /* indentation_level */ 0, "Start Event\n");
     yaml_stream_start_event_initialize(&event, YAML_UTF8_ENCODING);
     if (! yaml_emitter_emit(&emitter, &event))
     {
@@ -393,7 +393,7 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-    // printf("Start Document\n");
+    logprintf(verbose, /* indentation_level */ 0, "Start Document\n");
     yaml_document_start_event_initialize(&event, NULL, NULL, NULL, 0);
     if (! yaml_emitter_emit(&emitter, &event))
     {
@@ -404,7 +404,7 @@ int main(int argc, char *argv[])
     // Recursively serialize the configuration structure.
     serialize(verbose, /* indentation_level */ 0, &emitter, config->mainnode);
 
-    // printf("End Document\n");
+    logprintf(verbose, /* indentation_level */ 0, "End Document\n");
     yaml_document_end_event_initialize(&event, 1);
     if (! yaml_emitter_emit(&emitter, &event))
     {
@@ -412,7 +412,7 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-    // printf("End Event Stream\n");
+    logprintf(verbose, /* indentation_level */ 0, "End Event Stream\n");
     yaml_stream_end_event_initialize(&event);
     if (! yaml_emitter_emit(&emitter, &event))
     {
